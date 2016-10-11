@@ -5,6 +5,6 @@
 </head>
 <body>
 <h2>Hello Shiro!</h2>
-登录成功<a href="/shiroSession/logout.jsp">登出</a>
+登录成功<a href="${pageContext.request.contextPath}/logout.jsp">登出</a>
 </body>
 </html>
