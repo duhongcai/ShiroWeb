@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by DuHongcai on 2016/10/12.
  */
 public class CaptchaUtil {
-    private static final String RANDOM_STRS = "2345678qwertyupasdfkzxcvm";
+    private static final String RANDOM_STRS = "234568qwertyupasdfkzxcvm";
 
     private static final String FONT_NAME = "Fixedsys";
     private static final int FONT_SIZE = 30;

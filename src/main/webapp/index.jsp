@@ -24,5 +24,6 @@
 <shiro:user>
     <shiro:principal/>你好，您已登录成功<a href="logout">退出</a>
 </shiro:user>
+
 </body>
 </html>

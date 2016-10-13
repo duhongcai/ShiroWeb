@@ -208,15 +208,16 @@
 </head>
 <body>
 <div class="container af-container">
-    <form class="af-form" action="${pageContext.request.contextPath}/login.jsp" method="post">
+    <form class="af-form" action="${pageContext.request.contextPath}/login" method="post">
         <h2 class="header_tit_txt" style="text-align: center;">请登录</h2>
+        ${error}
         <div class="input-group">
             <input type="text" id="username" name="username" class="form-control" placeholder="用户名"
-                   style="width: 300px">
+                  value="${username}"  style="width: 300px">
         </div>
         <div class="input-group">
             <input type="password" id="password" name="password" class="form-control" placeholder="密码"
-                   style="width: 300px">
+                   value="${username}" style="width: 300px">
         </div>
        <div class="input-group">
            <input type="text" name="capatcha" id="capatcha" class="form-control" maxlength="4"
