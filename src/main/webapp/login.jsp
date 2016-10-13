@@ -208,7 +208,7 @@
 </head>
 <body>
 <div class="container af-container">
-    <form class="af-form" action="${pageContext.request.contextPath}/index.jsp" method="post">
+    <form class="af-form" action="${pageContext.request.contextPath}/login.jsp" method="post">
         <h2 class="header_tit_txt" style="text-align: center;">请登录</h2>
         <div class="input-group">
             <input type="text" id="username" name="username" class="form-control" placeholder="用户名"
@@ -218,6 +218,18 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="密码"
                    style="width: 300px">
         </div>
+       <div class="input-group">
+           <input type="text" name="capatcha" id="capatcha" class="form-control" maxlength="4"
+                  placeholder="验证码" style="width: 150px">
+           <image id="verfyCodeImage" src="/shiroSession/getCaptcha" style="padding: 3px">
+           </image>
+           <a href="javascript:;" id="changeVerifyCode">换一张</a>
+       </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="remember" name="remember" value="1">记住我
+            </label>
+        </div>
         <p>
             <button class="btn btn-lg btn-info btn-block" type="submit" style="width: 300px">登录</button>
             <br/>
@@ -225,5 +237,15 @@
         </p>
     </form>
 </div>
+<script type="text/javascript" src="assert/plugins/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    if (window!=top) {
+        top.location.href=location.href;
+    }
+    $("#changeVerifyCode").click(function(){
+        var timestamp = (new Date()).valueOf()
+        $("#verfyCodeImage").attr("src","/shiroSession/getCaptcha?t = "+timestamp)
+    })
+</script>
 </body>
 </html>
