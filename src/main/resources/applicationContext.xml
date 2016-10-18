@@ -12,14 +12,14 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-lazy-init="true">
     <!--1:配置不需要扫描的包-->
-    <context:component-scan base-package="controller">
+    <context:component-scan base-package="com.dhc.*">
         <context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Controller" />
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
     <!--2:引入数据库配置文件-->
-    <bean  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations" value="db.properties"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:db.properties"/>
     </bean>
     <!--2.1引入相关资源-->
     <import resource="applicationContext-res.xml"/>
@@ -27,12 +27,13 @@
     <!--3:配置mybatis -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dateSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mybatis-mapping/*.xml"/>
     </bean>
 
     <!--3.1自动将dao接口与mybatis配置文件进行合并-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="dao"/>
+        <property name="basePackage" value="com.dhc.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -40,5 +41,5 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dateSource"/>
     </bean>
-    <tx:advice transaction-manager="transactionManager"/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager"/>
 </beans>
