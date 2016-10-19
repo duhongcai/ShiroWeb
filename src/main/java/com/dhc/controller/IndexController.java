@@ -14,8 +14,8 @@ import java.io.IOException;
  * Created by DuHongcai on 2016/10/13.
  */
 //@WebServlet(name = "indexServlet",urlPatterns = "/index"
-@Controller
-@RequestMapping(value = "/")
+//@Controller
+//@RequestMapping(value = "/")
 public class IndexController  {
     @RequestMapping(value = "/index")
     public String toIndex(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

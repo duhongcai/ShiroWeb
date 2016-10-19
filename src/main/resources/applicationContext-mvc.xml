@@ -24,6 +24,10 @@
      <!-- 由spring进行管理-->
     <mvc:default-servlet-handler/>
 
+    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/login" view-name="login"/>
+    <mvc:view-controller path="/index" view-name="index"/>
+
     <!--2:视图映射-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/page/"/>
@@ -36,4 +40,14 @@
         <property name="maxUploadSize" value="10485760000"/>
         <property name="maxInMemorySize" value="40960"/>
     </bean>
+
+    <!--启动shiro注解：hasRole()/hasPermission()-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="liftCycle">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
     </beans>

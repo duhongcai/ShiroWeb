@@ -208,7 +208,7 @@
 </head>
 <body>
 <div class="container af-container">
-    <form class="af-form" action="${pageContext.request.contextPath}/index" method="post">
+    <form class="af-form" action="${pageContext.request.contextPath}/login" method="post">
         <h2 class="header_tit_txt" style="text-align: center;">请登录</h2>
         ${error}
         <div class="input-group">

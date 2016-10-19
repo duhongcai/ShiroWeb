@@ -24,10 +24,9 @@ import java.io.IOException;
  * Created by DuHongcai on 2016/10/11.
  */
 //@WebServlet(name = "loginServlet",urlPatterns = "/login")
-@Controller
-@RequestMapping(value = "/")
+//@Controller
+//@RequestMapping(value = "/")
 public class LoginController {
-
     @RequestMapping(value = "/login")
     public String doLogin(HttpServletRequest request, HttpServletResponse response) {
         return "login";

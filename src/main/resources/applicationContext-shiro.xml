@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
        default-lazy-init="true">
+    <!--
+        1:   SecurityManager
+        2:   Realm
+        3：  CacheManager
+        4：  SessionManager
+        5:   Filter
+        6:   加密、解密、编码、解码
+        7：  LifeCycle
+    -->
 
+    <!--安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
 
+    <!--自定义Realm-->
+    <bean id="myRealm" class="com.dhc.security.realm.MyRealm"/>
 
+    <!--缓存管理-->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+    <!-- 过滤器-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/index"/>
+        <!--//未授权界面跳转 TODO-->
+        <property name="unauthorizedUrl" value="/index"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /login=authc
+                /getCaptcha=anon
+                /assert/**=anon
+                /**=user
+            </value>
+        </property>
+    </bean>
+
+    <!-- 声明周期管理 ？？？？-->
+    <bean id="liftCycle" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>
