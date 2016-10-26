@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhc.dao.QulityDao">
+    <resultMap id="cusResult" type="com.dhc.entry.QualityPaper">
+        <result column="ClientID" property="cusId"/>
+        <result column="ClientNo" property="cusCode"/>
+        <result column="ClientName" property="cusName"/>
+        <result column="Area" property="cusProvices"/>
+        <result column="" property="cusLinkMan"/>
+        <result column="CorpType" property="cusType"/>
+    </resultMap>
+
+    <select id="getCnt" resultType="int">
+        SELECT COUNT(*) from WMSCorpInfo
+    </select>
+    <select id="getAllQualirtyCus" resultMap="cusResult" parameterType="com.dhc.dto.OrderParam">
+
+      select top(#{limit}) w.ClientID as cusId,ClientName as cusName,ClientNo as cusNo,CorpType as cusType,Area
+      from WMSCorpInfo w
+      left join clientunit c on
+      w.ClientID = c.ClientID
+      where c.ClientId not in (
+        SELECT top(#{offset}+#{limit}) w. ClientID  from WMSCorpInfo w
+      )
+    </select>
+</mapper>

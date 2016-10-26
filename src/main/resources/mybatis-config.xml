@@ -13,5 +13,11 @@
     <typeAliases>
         <package name="com.dhc.entry"/>
     </typeAliases>
-    
+
+    <plugins>
+        <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"/>
+        </plugin>
+    </plugins>
+
 </configuration>

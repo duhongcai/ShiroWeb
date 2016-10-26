@@ -58,7 +58,7 @@
                     <a href="index" target="zmainContext">权限管理</a>
                 </dd>
                 <dd style="display: none">
-                    <a href="index" target="zmainContext">数据监控</a>
+                    <a href="index" target="zmainContext">日志监控</a>
                 </dd>
             </dl>
 
@@ -79,9 +79,9 @@
                 </dd>
             </dl>
         </div>
-
+        <!--主題內容-->
         <div class="icontent" style="height: 855px;">
-            <iframe   name="zmainContext" id="frame" height="100%" width="100%"></iframe>
+            <iframe name="zmainContext" id="frame" height="100%" width="100%"></iframe>
         </div>
     </div>
 </body>
