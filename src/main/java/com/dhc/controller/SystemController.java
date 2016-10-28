@@ -1,7 +1,10 @@
 package com.dhc.controller;
 
+import com.dhc.entry.Order;
 import com.dhc.entry.QualityPaper;
+import com.dhc.service.OrderService;
 import com.dhc.service.QualityService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,9 @@ public class SystemController extends BaseController {
     @Autowired
     private QualityService qualityService;
 
+    @Autowired
+    private OrderService orderService;
+
     @RequestMapping(value = "/orderList")
     public String getOrderList(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "orders";
@@ -41,17 +47,20 @@ public class SystemController extends BaseController {
     }
 
     //bootstrspTable 需参
+    @RequiresRoles("admin1")
     @RequestMapping(value = "/initDate")
     @ResponseBody
     public Map<String, Object> initDate(HttpServletRequest request, Model model, @RequestParam Map<String, Object> param) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("total", qualityService.getCnt());
+        map.put("total", orderService.getOrderCnt(param));
         int offset = Integer.valueOf(param.get("offset").toString());
         int limit = Integer.valueOf(param.get("limit").toString());
-        List<QualityPaper> qualityPapers = qualityService.getAllQualirtyCus(param);
-        map.put("page", (offset / limit));
-        map.put("offset", offset);
-        map.put("rows", qualityPapers);
+        param.put("offset",offset);
+        param.put("limit",limit);
+        //List<QualityPaper> qualityPapers = qualityService.getAllQualirtyCus(param);
+        List<Order> orders = orderService.getOrderInfo(param);
+        map.put("page", offset / limit + 1);
+        map.put("rows", orders);
         return map;
     }
 }

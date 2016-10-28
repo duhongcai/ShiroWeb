@@ -24,7 +24,7 @@ public class QualityServiceImpl implements QualityService {
             orderParam.setOffset(offset);
             orderParam.setLimit(limit);
 
-        return qulityDao.getAllQualirtyCus(orderParam);
+        return qulityDao.getAllQualirtyCus(params);
     }
 
     public int getCnt() {

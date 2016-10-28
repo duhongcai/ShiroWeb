@@ -29,7 +29,15 @@
         <property name="loginUrl" value="/login"/>
         <property name="successUrl" value="/index"/>
         <!--//未授权界面跳转 TODO-->
-        <property name="unauthorizedUrl" value="/index"/>
+        <!--
+          未授权异常捕捉：
+          未授权异常时，unauthorizedUrl 主要针对：authorFilter 过滤器的子类有效：在filterChainDefinitions中配置的，这种方式不会抛出异常，主要是返回true/false
+          的方式，会返回配置的跳转页面，这个返回是给springMVC的，需要在MVC配置文件中配置，也可以直接返回页面，需要页面在webapp下，并且路径为页面路径；
+          通过注解方式的是抛出异常，这个异常是springMVC抛出的，需要springMVC声明一个错误异常的捕捉；或者使用@ControllerAdvice针对某类异常进行捕捉
+          1：url请求：可以直接返回页面，未授权页面
+          2：ajax请求，需要返回json，未授权的信息展示
+        -->
+        <property name="unauthorizedUrl" value="/unauthorized"/>
         <property name="filterChainDefinitions">
             <value>
                 /login=authc

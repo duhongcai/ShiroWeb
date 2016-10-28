@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dhc.dao.RoleDao">
-    <resultMap id="roleResult" type="com.dhc.entry.Role">
-        <id column="id" property="id"/>
-        <result column="role" property="roleName"/>
-        <result column="description" property="description"/>
-        <result column="AVAILABLE" property="available"/>
+<mapper namespace="com.dhc.dao.OrderDao">
+    <resultMap id="orderResult" type="com.dhc.entry.Order">
+        <result column="pagecode" property="pageCode"/>
+        <result column="corpname" property="cusName"/>
+        <result column="ResultTime" property="checkTime"/>
+        <result column="corptype" property="cusType"/>
     </resultMap>
 
-    <select id="getAllRoles" resultMap="roleResult">
-       SELECT ID,ROLE,DESCRIPTION,AVAILABLE FROM SYS_ROLES
+    <select id="getOrderCnt" parameterType="java.util.HashMap" resultType="int">
+        select  COUNT(*) from WMSOrderProcResult wo
+        left join wmsorderlist w on wo.pagecode = w.ListCode
+        where  ResultTime > '${startTime}' and ResultTime &lt; '${endTime}'
+      </select>
+
+
+    <select id="getOrderInfo" resultMap="orderResult" parameterType="java.util.HashMap">
+        select top(#{limit})  pagecode,CORPNAME,ResultTime,CorpType from WMSOrderProcResult wo
+        left join wmsorderlist w on wo.pagecode = w.ListCode
+        left join clientunit c on w.Custom = c.ClientID
+        where BusiType = 21 and ResultTime > '${startTime}' and ResultTime &lt; '${endTime}' AND  pageCode not IN (
+          SELECT top(#{offset}) pageCode from WMSOrderProcResult wo
+        left join wmsorderlist w on wo.pagecode = w.ListCode
+        where  ResultTime > '${startTime}' and ResultTime &lt; '${endTime}' and BusiType = 21
+        )
+        order by ResultTime desc
     </select>
 </mapper>

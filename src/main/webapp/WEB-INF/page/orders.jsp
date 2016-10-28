@@ -34,22 +34,15 @@
             type="text/javascript"></script>
     <script type="text/javascript">
 
-        var SystemOrder = SystemOrder || {};
-
-            $.ajax({
-                type:'post',
-                dataType:'JSON',
-                url:'initTime',
-                error:function(){
-                    alert("弄啥嘞！！！！！！！！")
-                },
-                success:function(data){
-                    SystemOrder.initPageDate(data);
-                }
-            })
-
-
+        var SystemOrder = {};
         SystemOrder.initPageDate = function (data) {
+
+            $("#queryDataBut_login").click(function(){
+                console.log("123");
+                $("#table").bootstrapTable("refresh",
+                        {queryParams: queryOrderParam})
+            });
+
             //登陆日志-日期范围
             $('#dateRange_login').daterangepicker(
                     {
@@ -62,8 +55,9 @@
                         "endDate": data.today,
                         showDropdowns: true
                     });
-        }
-        $(document).ready(function () {
+        };
+
+        var showTable = function() {
             $('#table').bootstrapTable({
                 method: 'post',
                 url: 'initDate',
@@ -73,28 +67,25 @@
                 singleSelect: false,
                 silent: true,
                 sidePagination: 'server',
-                pageList: [10, 15, 50],
+                pageSize:15,
+                pageList: [15,10, 50],
                 contentType: 'application/x-www-form-urlencoded',
                 columns: [
                     {
-                        field: 'cusId',
-                        title: '客户编号',
+                        field: 'pageCode',
+                        title: '订单编号',
                         align: 'center'
                     }, {
                         field: 'cusName',
                         title: '客户名称',
                         align: 'center'
                     }, {
-                        field: 'cusProvices',
-                        title: '地区',
+                        field: 'checkTime',
+                        title: '复核时间',
                         align: 'center'
                     }, {
                         field: 'cusType',
-                        title: '类型',
-                        align: 'center'
-                    }, {
-                        filed: '',
-                        title: '操作',
+                        title: '客户类型',
                         align: 'center'
                     }],
                 formatLoadingMessage: function () {
@@ -107,25 +98,34 @@
                     $('#table').bootstrapTable('removeAll');
                 }
             });
-            $('#dateRange_login').daterangepicker(
-                    {
-                        "ranges": {
-                            '今天': [moment(), moment()],
-                            '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            '近7天': [moment().subtract(6, 'days'), moment()],
-                        },
-                        "startDate": data.last7Days,
-                        "endDate": data.today,
-                        showDropdowns: true
-                    });
-            function queryOrderParam(param) {
-                var temp = {
-                    offset: param.offset,
-                    limit: param.limit
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                dataType: 'JSON',
+                url: 'initTime',
+                error: function () {
+                    alert("弄啥嘞！！！！！！！！")
+                },
+                success: function (data) {
+                    SystemOrder.initPageDate(data);
+                    //
+                    showTable();
                 }
-                return temp;
+            });
+        });
+
+        function queryOrderParam(param) {
+            var temp = {
+                offset: param.offset,
+                limit: param.limit,
+                startTime: $('#dateRange_login').data('daterangepicker').getStartDate() + " 00:00:00",
+                endTime:$('#dateRange_login').data('daterangepicker').getEndDate()+" 23:59:59",
             }
-        })
+            return temp;
+        };
+
     </script>
 </head>
 <body>
@@ -148,7 +148,9 @@
                 </fieldset>
             </form>
             <!--查询结果-->
-            <div class="powertable"><table id="table" name="table"></table></div>
+            <div class="powertable">
+                <table id="table" name="table"></table>
+            </div>
         </div>
     </div>
 </div>

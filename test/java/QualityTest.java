@@ -18,7 +18,7 @@ public class QualityTest extends BasicTest {
     @Test
     public void getQulityCus(){
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("offset","11");
+        map.put("offset","50");
         map.put("limit","10");
         List<QualityPaper> qualityPapers = qualityService.getAllQualirtyCus(map);
         for (QualityPaper qualityPaper:qualityPapers){

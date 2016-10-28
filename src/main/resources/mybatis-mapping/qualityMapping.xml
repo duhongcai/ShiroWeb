@@ -14,14 +14,14 @@
     <select id="getCnt" resultType="int">
         SELECT COUNT(*) from WMSCorpInfo
     </select>
-    <select id="getAllQualirtyCus" resultMap="cusResult" parameterType="com.dhc.dto.OrderParam">
+    <select id="getAllQualirtyCus" resultMap="cusResult" parameterType="java.util.HashMap">
 
       select top(#{limit}) w.ClientID as cusId,ClientName as cusName,ClientNo as cusNo,CorpType as cusType,Area
       from WMSCorpInfo w
       left join clientunit c on
       w.ClientID = c.ClientID
-      where c.ClientId not in (
-        SELECT top(#{offset}+#{limit}) w. ClientID  from WMSCorpInfo w
+      where w.ClientId not in (
+        SELECT top(#{offset}) w. ClientID  from WMSCorpInfo w
       )
     </select>
 </mapper>
