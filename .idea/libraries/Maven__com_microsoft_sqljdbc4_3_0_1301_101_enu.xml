@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.microsoft:sqljdbc4:3.0.1301.101_enu">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/microsoft/sqljdbc4/3.0.1301.101_enu/sqljdbc4-3.0.1301.101_enu.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/microsoft/sqljdbc4/3.0.1301.101_enu/sqljdbc4-3.0.1301.101_enu-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/microsoft/sqljdbc4/3.0.1301.101_enu/sqljdbc4-3.0.1301.101_enu-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

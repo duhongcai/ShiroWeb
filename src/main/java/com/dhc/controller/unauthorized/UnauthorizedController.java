@@ -10,23 +10,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 /**
  * Created by DuHongcai on 2016/10/27.
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class UnauthorizedController {
     private final static Logger logger = org.slf4j.LoggerFactory.getLogger(UnauthorizedController.class);
 
-   // @ExceptionHandler(UnauthorizedException.class)
+   @ExceptionHandler(UnauthorizedException.class)
     public ModelAndView toUnauthorizedPage(AuthorizationException ex, HttpServletRequest request, HttpServletResponse response){
         String pathInfo = request.getPathInfo();
         //判断是否是ajax请求
-        if(request.getHeader("X-Requested-With").equals("XMLHttpRequest")){
-            logger.info("This is from ServletResponse");
-            ShiroWebUtil.sendJson(response,"401--该用户没有访问权限");
-            return new ModelAndView();
-        }
-        return new ModelAndView();
+       if (ShiroWebUtil.ajax(request)){
+           ShiroWebUtil.sendJson(request,response,new HashMap<String, Object>());
+       }
+       return new ModelAndView();
     }
 }

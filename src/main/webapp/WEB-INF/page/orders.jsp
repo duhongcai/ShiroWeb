@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <link href="/shiroWeb/assert/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -30,8 +31,26 @@
             type="text/javascript"></script>
     <script src="/shiroWeb/assert/plugins/bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
     <script src="/shiroWeb/assert/js/yCloud.js" type="text/javascript"></script>
-    <script src="/shiroWeb/assert/plugins/bootstrap-daterangepicker/js/datetimepicker.zh-CN.js"
-            type="text/javascript"></script>
+    <script type="text/javascript">
+        /*针对ajax调用，常用错误编码的统一处理*/
+        $.ajaxSetup({
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            complete : function(xhr, textStatus) {
+                try{
+                    //var data = eval('(' + xhr.responseText + ')');
+                    var data = $.parseJSON(xhr.responseText);
+                    console.log(data);
+                    console.log(data.status)
+                    if(data.status == 'failure') {
+                        console.log(data.status)
+                        alert("errorCode : " + data.code + " , errorMessage : " + data.message);
+                    }
+                }catch(e){
+                    console.log("ajaxSetup处理返回结果处理失败"+e)
+                }
+            }
+        });
+    </script>
     <script type="text/javascript">
 
         var SystemOrder = {};

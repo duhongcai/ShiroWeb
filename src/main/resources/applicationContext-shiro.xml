@@ -48,6 +48,6 @@
         </property>
     </bean>
 
-    <!-- 声明周期管理 ？？？？-->
+    <!-- 声明周期管理-->
     <bean id="liftCycle" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>
