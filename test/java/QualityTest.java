@@ -23,5 +23,7 @@ public class QualityTest extends BasicTest {
         List<QualityPaper> qualityPapers = qualityService.getAllQualirtyCus(map);
         for (QualityPaper qualityPaper:qualityPapers){
         }
+        short s1 = 1;
+        s1 += 1;
     }
 }

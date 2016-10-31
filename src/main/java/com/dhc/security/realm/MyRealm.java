@@ -20,6 +20,7 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("This is from MyRealm");
         User user = (User) getAvailablePrincipal(principals);
+        String username = user.getLoginName();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //权限 -- -使用set 防重复 <对象需重写equal和hasCode>
         Set<String> s = new HashSet<String>();

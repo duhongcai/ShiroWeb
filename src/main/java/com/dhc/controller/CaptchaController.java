@@ -23,7 +23,7 @@ public class CaptchaController {
     public void getCaptcha(HttpServletRequest req, HttpServletResponse resp) {
         resp.setContentType("image/jpeg");
         resp.setHeader("Pargma", "No-Cache");
-        resp.setHeader("Cache-Control", "no-cacge");
+        resp.setHeader("Cache-Control", "No-Cache");
         resp.setDateHeader("Expire", 0);
         try {
             HttpSession session = req.getSession();

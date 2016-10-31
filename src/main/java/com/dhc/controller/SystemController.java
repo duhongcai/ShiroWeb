@@ -47,7 +47,7 @@ public class SystemController extends BaseController {
     }
 
     //bootstrspTable 需参
-    @RequiresRoles("admin1")
+    @RequiresRoles("admin")
     @RequestMapping(value = "/initDate")
     @ResponseBody
     public Map<String, Object> initDate(HttpServletRequest request, Model model, @RequestParam Map<String, Object> param) {

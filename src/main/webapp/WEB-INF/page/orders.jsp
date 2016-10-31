@@ -33,6 +33,10 @@
     <script src="/shiroWeb/assert/js/yCloud.js" type="text/javascript"></script>
     <script type="text/javascript">
         /*针对ajax调用，常用错误编码的统一处理*/
+        <!--
+            ajaxSetup:对ajax设置一个全局的属性参数，对所有的ajax请求的发出和返回进行归类处理
+                      $.parseJSON解析返回对象为JSON数据 complete：ajax请求并收到返回后，对返回进行额外的处理逻辑
+        -->
         $.ajaxSetup({
             contentType : "application/x-www-form-urlencoded;charset=utf-8",
             complete : function(xhr, textStatus) {
@@ -57,7 +61,6 @@
         SystemOrder.initPageDate = function (data) {
 
             $("#queryDataBut_login").click(function(){
-                console.log("123");
                 $("#table").bootstrapTable("refresh",
                         {queryParams: queryOrderParam})
             });

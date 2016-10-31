@@ -37,7 +37,7 @@
                     <a href="#" id="PasswordChange">
                         <i class="fa fa-key"></i>密码修改
                     </a>
-                    <a href="#" id="logoutConfim">
+                    <a href="system/logout" id="logoutConfim">
                         <i class="fa fa-key"></i>退出
                     </a>
                 </p>
