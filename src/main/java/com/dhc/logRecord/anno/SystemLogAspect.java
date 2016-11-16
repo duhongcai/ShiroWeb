@@ -1,9 +1,12 @@
 package com.dhc.logRecord.anno;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.dhc.dto.User;
 import com.dhc.logRecord.LogService;
 import com.dhc.logRecord.SystemControllerLog;
 import com.dhc.logRecord.SystemServliceLog;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * Created by DuHongcai on 2016/11/15.
@@ -112,11 +116,16 @@ public class SystemLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = request.getRemoteAddr();
         try{
+            Subject subject = SecurityUtils.getSubject();
             System.out.println("===服务层前置通知开始===");
             System.out.println("调用方法为："+joinPoint.getTarget().getClass().getName()+"."+
                                 joinPoint.getSignature().getName()+"()");
             System.out.println("方法描述:"+getServiceMethodDescription(joinPoint));
             System.out.println("请求IP:"+ip);
+            User user = (User) subject.getPrincipal();
+            System.out.println("用户名："+user.getLoginName());
+            System.out.println("JESSION："+subject.getSession().getId());
+            System.out.println("操作时间："+(new Date()));
             System.out.println("===服务层前置通知结束===");
         }catch (Exception e){
             System.out.println("===服务层前置通知异常===");

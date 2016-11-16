@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhc.dao.LogRecoderDao">
+    <resultMap id="logResultMap" type="com.dhc.entry.LogInfo">
+        <id column="OPERATE_ID" property="operateId"/>
+        <result column="STAFF_ID" property="staffId"/>
+        <result column="LOGIN_ACCOUNT" property="loginAccount"/>
+        <result column="OPERATE_CODE" property="operateCode"/>
+        <result column="OPERATE_CONTENT" property="operateContent"/>
+        <result column="OPERATE_DESC" property="operateDesc"/>
+        <result column="CREATE_TIME" property="oerateTime"/>
+        <result column="IS_SUCCESS" property="isSuccess"/>
+        <result column="EXECUTE_TIME" property="executionTime"/>
+        <result column="BROSWER" property="broswer"/>
+        <result column="STAFF_NAME" property="staffName"/>
+        <result column="REAMRK" property="remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+         OPERATE_ID,STAFF_ID,LOGIN_ACCOUNT,OPERATE_CODE,OPERATE_CONTENT,
+         OPERATE_DESC,CREATE_TIME,IS_SUCCESS,EXECUTE_TIME,BROSWER,STAFF_NAME,REAMRK
+    </sql>
+
+    <insert id="insertLogService" useGeneratedKeys="true" parameterType="LogInfo" keyProperty="operateId">
+        INSERT INTO T_SYS_LOG (STAFF_ID,LOGIN_ACCOUNT,OPERATE_CODE,OPERATE_CONTENT,OPERATE_DESC,CREATE_TIME,
+        IS_SUCCESS,EXECUTE_TIME,BROSWER,STAFF_NAME,REAMRK)
+        VALUES (#{staffId},#{loginAccount},#{operateCode},#{operateContent},#{operateDesc},#{oerateTime},#{isSuccess},
+                #{executionTime},#{broswer},#{staffName},#{remark})
+    </insert>
+
+</mapper>

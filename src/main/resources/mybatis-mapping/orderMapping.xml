@@ -12,7 +12,7 @@
     <select id="getOrderCnt" parameterType="java.util.HashMap" resultType="int">
         select  COUNT(*) from WMSOrderProcResult wo
         left join wmsorderlist w on wo.pagecode = w.ListCode
-        where  ResultTime > '${startTime}' and ResultTime &lt; '${endTime}'
+        where  ResultTime > '#{startTime}' and ResultTime &lt; '#{endTime}'
         and busitype = '21'
       </select>
 
@@ -21,11 +21,10 @@
         select top(#{limit})  pagecode,CORPNAME,ResultTime,CorpType from WMSOrderProcResult wo
         left join wmsorderlist w on wo.pagecode = w.ListCode
         left join clientunit c on w.Custom = c.ClientID
-        where BusiType = 21 and ResultTime > '${startTime}' and ResultTime &lt; '${endTime}' AND  pageCode not IN (
+        where BusiType = 21 and ResultTime > '#{startTime}' and ResultTime &lt; '#{endTime}' AND  pageCode not IN (
           SELECT top(#{offset}) pageCode from WMSOrderProcResult wo
         left join wmsorderlist w on wo.pagecode = w.ListCode
-        where  ResultTime > '${startTime}' and ResultTime &lt; '${endTime}' and BusiType = 21
+        where  ResultTime > '#{startTime}' and ResultTime &lt; '#{endTime}' and BusiType = 21
         )
-        order by ResultTime desc
     </select>
 </mapper>
