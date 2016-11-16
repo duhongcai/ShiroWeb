@@ -1,5 +1,6 @@
 package com.dhc.controller;
 
+import com.dhc.logRecord.SystemControllerLog;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -28,6 +29,7 @@ public class LoginController {
         return "/login";
     }
 
+    @SystemControllerLog(description = "请求登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String doLogin(HttpServletRequest request, HttpServletResponse response, org.springframework.ui.Model model) throws ServletException, IOException {
         HttpSession session = request.getSession();

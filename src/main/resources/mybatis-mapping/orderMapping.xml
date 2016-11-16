@@ -13,6 +13,7 @@
         select  COUNT(*) from WMSOrderProcResult wo
         left join wmsorderlist w on wo.pagecode = w.ListCode
         where  ResultTime > '${startTime}' and ResultTime &lt; '${endTime}'
+        and busitype = '21'
       </select>
 
 

@@ -42,4 +42,7 @@
         <property name="dataSource" ref="dateSource"/>
     </bean>
     <tx:advice id="txAdvice" transaction-manager="transactionManager"/>
+
+    <aop:aspectj-autoproxy/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

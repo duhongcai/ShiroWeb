@@ -3,6 +3,7 @@ package com.dhc.service.impl;
 import com.dhc.dao.OrderDao;
 import com.dhc.entry.Order;
 import com.dhc.entry.QualityPaper;
+import com.dhc.logRecord.SystemServliceLog;
 import com.dhc.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDao orderDao;
+    @SystemServliceLog(description = "获取复核订单")
     public List<Order> getOrderInfo(Map<String, Object> params) {
         return orderDao.getOrderInfo(params);
     }
